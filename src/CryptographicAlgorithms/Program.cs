@@ -91,7 +91,7 @@ namespace CryptographicAlgorithms
             // Prints out the HASH lenght for each cryptographic HASH algorithm along with the hash string
             foreach (KeyValuePair<string, HashAlgorithm> keyValuePair in algorithms)
             {
-                Console.WriteLine($"{keyValuePair.Key} is {pair.Value.ComputeHash(source).Length} bytes => {Convert.ToBase64String(keyValuePair.Value.ComputeHash(source))}");
+                Console.WriteLine($"{keyValuePair.Key} is {keyValuePair.Value.ComputeHash(source).Length} bytes => {Convert.ToBase64String(keyValuePair.Value.ComputeHash(source))}");
                 Console.WriteLine();
             }
             // Number of iterations
