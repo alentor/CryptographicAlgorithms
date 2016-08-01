@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Security.Cryptography;
@@ -9,7 +9,7 @@ namespace CryptographicAlgorithms
     public class Program
     {
         /// <summary>
-        /// Measures the time it takes to calcialte Cryptographic HASH function
+        /// Measures the time it takes to compute cryptographic HASH algorithm
         /// </summary>
         /// <param name="description"> The name of the cryptographic HASH algorithm </param>
         /// <param name="iterations">  Number of times the cryptographic  HASH algorithm will be run </param>
@@ -41,7 +41,7 @@ namespace CryptographicAlgorithms
         }
 
         /// <summary>
-        /// Gets an unique string at any lenght
+        /// Gets an unique string at given lenght
         /// </summary>
         /// <param name="maxSize"> The lenght of your random unique string </param>
         /// <returns> Randomized unique string </returns>
@@ -78,7 +78,7 @@ namespace CryptographicAlgorithms
                 ["sha384"] = sha384,
                 ["sha512"] = sha512
             };
-            // Create Password and Salt, use size defined
+            // Create Password and Salt, use user size defined
             string pwd = GetUniqueKey(25);
             string salt = GetUniqueKey(10);
             Console.WriteLine($"pwd => {pwd}");
@@ -86,28 +86,22 @@ namespace CryptographicAlgorithms
             Console.WriteLine();
             Console.WriteLine($"Password lenght => {pwd.Length}, Salt lenght => {salt.Length} combined => {pwd.Length + salt.Length}");
             Console.WriteLine();
-            // Oudated code to calculate source
-            // Source for HASH compute
-            //byte[] source = new byte[Encoding.UTF8.GetBytes(pwd).Length + Encoding.UTF8.GetBytes(salt).Length];
-            //// Join pwd and salt => it would have been easier to just join the 2 strings
-            //Buffer.BlockCopy(Encoding.UTF8.GetBytes(pwd), 0, source, 0, Encoding.UTF8.GetBytes(pwd).Length);
-            //Buffer.BlockCopy(Encoding.UTF8.GetBytes(salt), 0, source, Encoding.UTF8.GetBytes(pwd).Length, Encoding.UTF8.GetBytes(salt).Length);
             // Source for HASH compute
             byte[] source = Encoding.UTF8.GetBytes(pwd + salt);
-            // Prints out the HASH lenght for each cryptographic algorithm along with the hash string
-            foreach (KeyValuePair<string, HashAlgorithm> pair in algorithms)
+            // Prints out the HASH lenght for each cryptographic HASH algorithm along with the hash string
+            foreach (KeyValuePair<string, HashAlgorithm> keyValuePair in algorithms)
             {
-                Console.WriteLine($"{pair.Key} is {pair.Value.ComputeHash(source).Length} bytes => {Convert.ToBase64String(pair.Value.ComputeHash(source))}");
+                Console.WriteLine($"{keyValuePair.Key} is {pair.Value.ComputeHash(source).Length} bytes => {Convert.ToBase64String(keyValuePair.Value.ComputeHash(source))}");
                 Console.WriteLine();
             }
             // Number of iterations
             const int iterations = 1000;
             Console.WriteLine($"Iterations => {iterations}");
             Console.WriteLine();
-            // Runs thro each cryptographic HASH algorithm and prints out the time it took to computre X hash computations
-            foreach (KeyValuePair<string, HashAlgorithm> pair in algorithms)
+            // Runs thro each cryptographic HASH algorithm and prints out the time it took to compute X hash computations
+            foreach (KeyValuePair<string, HashAlgorithm> keyValuePair in algorithms)
             {
-                TimeAction(pair.Key + " calculation", iterations, () => { pair.Value.ComputeHash(source); });
+                TimeAction(keyValuePair.Key + " calculation", iterations, () => { keyValuePair.Value.ComputeHash(source); });
             }
             Console.ReadLine();
         }
